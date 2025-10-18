@@ -44,11 +44,26 @@ export function Contact({
     e.preventDefault()
     setSubmitting(true)
 
-    // TODO: Implement form submission to API
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState),
+      })
 
-    setSubmitting(false)
-    setFormState({ name: '', email: '', phone: '', message: '' })
+      const data = await response.json()
+
+      if (response.ok) {
+        setFormState({ name: '', email: '', phone: '', message: '' })
+        alert(data.data?.message || 'Message sent successfully!')
+      } else {
+        alert(data.message || 'Failed to send message')
+      }
+    } catch {
+      alert('Failed to send message. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
