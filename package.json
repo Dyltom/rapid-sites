@@ -18,7 +18,12 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "validate": "pnpm type-check && pnpm lint && pnpm test run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:clean": "docker-compose down -v",
+    "docker:reset": "docker-compose down -v && docker-compose up -d --build"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.60.0",
