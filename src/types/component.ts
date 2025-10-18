@@ -181,7 +181,7 @@ export interface CTASectionData {
   title: string
   description?: string
   buttons: Link[]
-  background?: 'default' | 'accent' | 'gradient'
+  background?: 'default' | 'accent' | 'dark' | 'gradient'
 }
 
 /**
