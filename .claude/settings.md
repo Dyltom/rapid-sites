@@ -88,16 +88,21 @@ export function MyComponent({ title, description }: MyComponentProps) {
 
 1. Check ROADMAP.md for current priorities
 2. Review related documentation
-3. Ensure database is running
+3. Ensure database is running (or use Docker: `pnpm docker:up`)
 4. Run `pnpm dev` to start development server
+5. Run `pnpm validate` to ensure clean starting point
 
 ### When Adding Features
 
 1. Create feature branch from `main`
-2. Update relevant documentation
-3. Add tests if applicable
-4. Update ROADMAP.md if completing a task
-5. Commit with descriptive messages
+2. Write code following DRY principles
+3. **Add tests for new functionality** (REQUIRED)
+4. Update relevant documentation
+5. Update ROADMAP.md if completing a task
+6. **Run `pnpm validate`** - MUST pass
+7. **Test in browser** - Manual verification
+8. **Test Docker if infrastructure changed**
+9. Commit with descriptive messages
 
 ### Commit Message Format
 
@@ -167,10 +172,30 @@ Types: feat, fix, docs, style, refactor, test, chore
 
 ## Testing
 
-- Unit tests for utilities and helpers
-- Integration tests for API routes
-- E2E tests for critical user flows
-- Test multi-tenancy isolation
+### Testing Requirements (CRITICAL)
+
+**BEFORE any deployment or merge to main:**
+1. Run `pnpm validate` - MUST pass (type-check + lint + test)
+2. Test Docker build: `docker build -t rapid-sites:test .`
+3. Test Docker Compose: `pnpm docker:up` (verify services start)
+4. Manual verification of new features in browser
+5. Check health endpoint: `curl http://localhost:3000/api/health`
+
+**NEVER deploy without:**
+- ✅ All TypeScript errors fixed (strict mode)
+- ✅ Zero ESLint warnings/errors
+- ✅ All tests passing (100%)
+- ✅ Docker build successful
+- ✅ Docker Compose starts without errors
+- ✅ Browser testing completed
+
+### Test Coverage
+
+- Unit tests for utilities and helpers (required)
+- Integration tests for API routes (required)
+- E2E tests for critical user flows (recommended)
+- Test multi-tenancy isolation (required)
+- Browser testing for new UI components (required)
 
 ## Performance
 
