@@ -83,6 +83,7 @@ export function Contact({
                 <Label htmlFor="name">Name *</Label>
                 <Input
                   id="name"
+                  name="name"
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   required
@@ -94,6 +95,7 @@ export function Contact({
                 <Label htmlFor="email">Email *</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
@@ -106,6 +108,7 @@ export function Contact({
                 <Label htmlFor="phone">Phone</Label>
                 <Input
                   id="phone"
+                  name="phone"
                   type="tel"
                   value={formState.phone}
                   onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
@@ -117,6 +120,7 @@ export function Contact({
                 <Label htmlFor="message">Message *</Label>
                 <Textarea
                   id="message"
+                  name="message"
                   rows={5}
                   value={formState.message}
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
