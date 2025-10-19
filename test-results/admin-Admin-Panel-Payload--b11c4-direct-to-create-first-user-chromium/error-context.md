@@ -2,57 +2,57 @@
 
 ```yaml
 - generic [active] [ref=e1]:
-  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
-    - img [ref=e8]
-  - alert [ref=e11]: Create first user - Payload
-  - generic [ref=e14]:
-    - heading "Welcome" [level=1] [ref=e15]
-    - paragraph [ref=e16]: To begin, create your first user.
-    - generic [ref=e17]:
-      - generic [ref=e19]:
-        - generic [ref=e20]:
+  - generic [ref=e4]:
+    - heading "Welcome" [level=1] [ref=e5]
+    - paragraph [ref=e6]: To begin, create your first user.
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
           - text: Email
-          - generic [ref=e21]: "*"
-        - textbox "Email *" [ref=e23]
-      - generic [ref=e24]:
-        - generic [ref=e25]:
+          - generic [ref=e11]: "*"
+        - textbox "Email *" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
           - text: New Password
-          - generic [ref=e26]: "*"
-        - textbox "New Password" [ref=e29]
-      - generic [ref=e30]:
-        - generic [ref=e31]:
+          - generic [ref=e16]: "*"
+        - textbox "New Password" [ref=e19]
+      - generic [ref=e20]:
+        - generic [ref=e21]:
           - text: Confirm Password
-          - generic [ref=e32]: "*"
-        - textbox "Confirm Password" [ref=e34]
-      - generic [ref=e35]:
-        - generic [ref=e36]:
-          - generic [ref=e37]:
+          - generic [ref=e22]: "*"
+        - textbox "Confirm Password" [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
             - text: Name
-            - generic [ref=e38]: "*"
-          - textbox "Name *" [ref=e40]
-        - generic [ref=e41]:
-          - generic [ref=e42]:
+            - generic [ref=e28]: "*"
+          - textbox "Name *" [ref=e30]
+        - generic [ref=e31]:
+          - generic [ref=e32]:
             - text: Role
-            - generic [ref=e43]: "*"
-          - generic [ref=e45]:
-            - log [ref=e47]
-            - generic [ref=e48]:
-              - generic [ref=e50]:
-                - generic [ref=e51]: User
-                - combobox [ref=e53]
-              - generic [ref=e54]:
-                - button [ref=e55] [cursor=pointer]:
-                  - img [ref=e56]
-                - button [ref=e58] [cursor=pointer]:
-                  - img [ref=e59]
-        - generic [ref=e61]:
-          - generic [ref=e62]: Tenant Id
-          - generic [ref=e63]:
-            - textbox "Tenant Id" [ref=e64]
-            - generic [ref=e65]: Associated tenant ID for multi-tenancy
-      - button "Create" [ref=e67] [cursor=pointer]:
+            - generic [ref=e33]: "*"
+          - generic [ref=e35]:
+            - log [ref=e37]
+            - generic [ref=e38]:
+              - generic [ref=e40]:
+                - generic [ref=e41]: User
+                - combobox [ref=e43]
+              - generic [ref=e44]:
+                - button [ref=e45] [cursor=pointer]:
+                  - img [ref=e46]
+                - button [ref=e48] [cursor=pointer]:
+                  - img [ref=e49]
+        - generic [ref=e51]:
+          - generic [ref=e52]: Tenant Id
+          - generic [ref=e53]:
+            - textbox "Tenant Id" [ref=e54]
+            - generic [ref=e55]: Associated tenant ID for multi-tenancy
+      - button "Create" [ref=e57] [cursor=pointer]:
         - generic:
           - generic: Create
-  - status [ref=e68]
+  - status [ref=e58]
   - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e64] [cursor=pointer]:
+    - img [ref=e65]
+  - alert [ref=e68]: Create first user - Payload
 ```

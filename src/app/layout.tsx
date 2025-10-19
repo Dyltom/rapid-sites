@@ -1,19 +1,8 @@
-import type { Metadata } from 'next'
-import './globals.css'
-
-export const metadata: Metadata = {
-  title: 'Rapid Sites',
-  description: 'Multi-tenant website framework for small businesses',
-}
-
+// Minimal root layout - route groups handle their own html/body
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+  return <>{children}</>
 }
