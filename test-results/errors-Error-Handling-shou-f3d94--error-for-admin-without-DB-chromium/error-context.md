@@ -1,0 +1,69 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e6] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e7]:
+      - img [ref=e8]
+    - generic [ref=e11]:
+      - button "Open issues overlay" [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: "5"
+          - generic [ref=e15]: "6"
+        - generic [ref=e16]:
+          - text: Issue
+          - generic [ref=e17]: s
+      - button "Collapse issues badge" [ref=e18]:
+        - img [ref=e19]
+  - alert [ref=e21]: Create first user - Payload
+  - generic [ref=e24]:
+    - heading "Welcome" [level=1] [ref=e25]
+    - paragraph [ref=e26]: To begin, create your first user.
+    - generic [ref=e27]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - text: Email
+          - generic [ref=e31]: "*"
+        - textbox "Email *" [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - text: New Password
+          - generic [ref=e36]: "*"
+        - textbox "New Password" [ref=e39]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - text: Confirm Password
+          - generic [ref=e42]: "*"
+        - textbox "Confirm Password" [ref=e44]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - text: Name
+            - generic [ref=e48]: "*"
+          - textbox "Name *" [ref=e50]
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - text: Role
+            - generic [ref=e53]: "*"
+          - generic [ref=e55]:
+            - log [ref=e57]
+            - generic [ref=e58]:
+              - generic [ref=e60]:
+                - generic [ref=e61]: User
+                - combobox [ref=e63]
+              - generic [ref=e64]:
+                - button [ref=e65] [cursor=pointer]:
+                  - img [ref=e66]
+                - button [ref=e68] [cursor=pointer]:
+                  - img [ref=e69]
+        - generic [ref=e71]:
+          - generic [ref=e72]: Tenant Id
+          - generic [ref=e73]:
+            - textbox "Tenant Id" [ref=e74]
+            - generic [ref=e75]: Associated tenant ID for multi-tenancy
+      - button "Create" [ref=e77] [cursor=pointer]:
+        - generic:
+          - generic: Create
+  - status [ref=e78]
+  - region "Notifications alt+T"
+```

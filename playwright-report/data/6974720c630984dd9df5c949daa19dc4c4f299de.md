@@ -1,0 +1,141 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Rapid Sites Demo" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: Rapid Sites Demo
+        - generic [ref=e8]:
+          - link "Features" [ref=e9] [cursor=pointer]:
+            - /url: "#features"
+          - link "Contact" [ref=e10] [cursor=pointer]:
+            - /url: "#contact"
+          - link "GitHub" [ref=e11] [cursor=pointer]:
+            - /url: https://github.com/Dyltom/rapid-sites
+    - main [ref=e12]:
+      - generic [ref=e16]:
+        - paragraph [ref=e17]: Rapid Deployment
+        - heading "Build Beautiful Websites in Minutes" [level=1] [ref=e18]
+        - paragraph [ref=e19]: A multi-tenant Next.js framework for agencies deploying professional small business websites. Built with Payload CMS, shadcn/ui, and TypeScript.
+        - generic [ref=e20]:
+          - link "Learn More" [ref=e21] [cursor=pointer]:
+            - /url: "#features"
+          - link "View on GitHub" [ref=e22] [cursor=pointer]:
+            - /url: https://github.com/Dyltom/rapid-sites
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "What We Offer" [level=2] [ref=e26]
+          - paragraph [ref=e27]: Everything you need to rapidly deploy professional websites for small businesses
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - generic [ref=e30]: 🚀
+            - heading "Rapid Deployment" [level=3] [ref=e31]
+            - paragraph [ref=e32]: Deploy new client sites in minutes with our multi-tenant architecture
+          - generic [ref=e33]:
+            - generic [ref=e34]: 🎨
+            - heading "Easy Customization" [level=3] [ref=e35]
+            - paragraph [ref=e36]: Per-tenant theming with CSS variables and shadcn/ui components
+          - generic [ref=e37]:
+            - generic [ref=e38]: 📝
+            - heading "Content Management" [level=3] [ref=e39]
+            - paragraph [ref=e40]: Payload CMS 3.0 integrated directly into Next.js for easy content updates
+          - generic [ref=e41]:
+            - generic [ref=e42]: 🔒
+            - heading "Type-Safe" [level=3] [ref=e43]
+            - paragraph [ref=e44]: Built with TypeScript strict mode for maximum reliability
+          - generic [ref=e45]:
+            - generic [ref=e46]: 📱
+            - heading "Responsive" [level=3] [ref=e47]
+            - paragraph [ref=e48]: Mobile-first design that works perfectly on all devices
+          - generic [ref=e49]:
+            - generic [ref=e50]: ⚡
+            - heading "Performance" [level=3] [ref=e51]
+            - paragraph [ref=e52]: Next.js 15 with App Router for blazing fast page loads
+      - generic [ref=e55]:
+        - heading "Ready to Get Started?" [level=2] [ref=e56]
+        - paragraph [ref=e57]: Start building professional websites for your clients today
+        - generic [ref=e58]:
+          - link "View Documentation" [ref=e59] [cursor=pointer]:
+            - /url: https://github.com/Dyltom/rapid-sites
+          - link "Contact Us" [ref=e60] [cursor=pointer]:
+            - /url: "#contact"
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - heading "Contact Us" [level=2] [ref=e64]
+          - paragraph [ref=e65]: Ready to get started? Reach out to us today.
+        - generic [ref=e66]:
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - text: Name *
+              - textbox "Name *" [ref=e70]
+            - generic [ref=e71]:
+              - text: Email *
+              - textbox "Email *" [ref=e72]
+            - generic [ref=e73]:
+              - text: Phone
+              - textbox "Phone" [ref=e74]
+            - generic [ref=e75]:
+              - text: Message *
+              - textbox "Message *" [ref=e76]
+            - button "Send Message" [ref=e77] [cursor=pointer]
+          - generic [ref=e79]:
+            - heading "Contact Information" [level=3] [ref=e80]
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - paragraph [ref=e83]: Email
+                - link "contact@rapidsites.dev" [ref=e84] [cursor=pointer]:
+                  - /url: mailto:contact@rapidsites.dev
+              - generic [ref=e85]:
+                - paragraph [ref=e86]: Phone
+                - link "(555) 123-4567" [ref=e87] [cursor=pointer]:
+                  - /url: tel:(555) 123-4567
+              - generic [ref=e88]:
+                - paragraph [ref=e89]: Address
+                - paragraph [ref=e90]: 123 Web Street, Internet City, 12345
+    - contentinfo [ref=e91]:
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - link "Rapid Sites Demo" [ref=e96] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e97]: Rapid Sites Demo
+            - paragraph [ref=e98]: Multi-tenant Next.js framework for rapidly deploying small business websites.
+            - generic [ref=e99]:
+              - link "github" [ref=e100] [cursor=pointer]:
+                - /url: https://github.com/Dyltom/rapid-sites
+                - img [ref=e101]
+              - link "twitter" [ref=e103] [cursor=pointer]:
+                - /url: https://twitter.com
+                - img [ref=e104]
+          - generic [ref=e106]:
+            - heading "Product" [level=3] [ref=e107]
+            - list [ref=e108]:
+              - listitem [ref=e109]:
+                - link "Features" [ref=e110] [cursor=pointer]:
+                  - /url: "#features"
+              - listitem [ref=e111]:
+                - link "Documentation" [ref=e112] [cursor=pointer]:
+                  - /url: /docs
+              - listitem [ref=e113]:
+                - link "Pricing" [ref=e114] [cursor=pointer]:
+                  - /url: /pricing
+          - generic [ref=e115]:
+            - heading "Resources" [level=3] [ref=e116]
+            - list [ref=e117]:
+              - listitem [ref=e118]:
+                - link "GitHub" [ref=e119] [cursor=pointer]:
+                  - /url: https://github.com/Dyltom/rapid-sites
+              - listitem [ref=e120]:
+                - link "Roadmap" [ref=e121] [cursor=pointer]:
+                  - /url: /roadmap
+              - listitem [ref=e122]:
+                - link "Changelog" [ref=e123] [cursor=pointer]:
+                  - /url: /changelog
+        - generic [ref=e124]: © 2025 Rapid Sites Demo. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e130] [cursor=pointer]:
+    - img [ref=e131]
+  - alert [ref=e134]
+```

@@ -5,27 +5,25 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-// Import collections
-import {
-  Users,
-  Media,
-  Pages,
-  Posts,
-  Categories,
-  Tenants,
-  TeamMembers,
-  TestimonialsCollection,
-  Gallery,
-  Products,
-  Newsletter,
-} from './payload/collections'
+// Import collections directly (TypeScript resolves extensions)
+import { Users } from './payload/collections/Users'
+import { Media } from './payload/collections/Media'
+import { Pages } from './payload/collections/Pages'
+import { Posts } from './payload/collections/Posts'
+import { Categories } from './payload/collections/Categories'
+import { Tenants } from './payload/collections/Tenants'
+import { TeamMembers } from './payload/collections/TeamMembers'
+import { TestimonialsCollection } from './payload/collections/TestimonialsCollection'
+import { Gallery } from './payload/collections/Gallery'
+import { Products } from './payload/collections/Products'
+import { Newsletter } from './payload/collections/Newsletter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: 'users',
+    user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
