@@ -4,6 +4,7 @@ import { Container, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddToCartButton } from '@/components/cart/AddToCartButton'
+import { CartButton } from '@/components/cart/CartButton'
 import { formatCurrency } from '@/lib/utils'
 
 // Demo products (same as store page)
@@ -100,6 +101,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   return (
     <>
+      {/* Cart Button - Fixed Position */}
+      <div className="fixed top-20 right-4 z-40">
+        <CartButton />
+      </div>
+
       {/* Breadcrumb */}
       <Section padding="sm">
         <Container>

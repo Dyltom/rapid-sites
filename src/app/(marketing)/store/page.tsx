@@ -4,6 +4,7 @@ import { SectionHeader } from '@/components/sections'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { CartButton } from '@/components/cart/CartButton'
 import { formatCurrency } from '@/lib/utils'
 
 /**
@@ -92,6 +93,11 @@ export default async function StorePage() {
 
   return (
     <>
+      {/* Cart Button - Fixed Position */}
+      <div className="fixed top-20 right-4 z-40">
+        <CartButton />
+      </div>
+
       {/* Hero Section */}
       <Section padding="lg" background="muted">
         <Container>
