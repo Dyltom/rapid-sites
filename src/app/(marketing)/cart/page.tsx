@@ -1,17 +1,23 @@
+'use client'
+
 import Link from 'next/link'
 import { Container, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useCart } from '@/hooks/useCart'
+import { formatCurrency } from '@/lib/utils'
 
 /**
  * Cart Page
  *
- * Shopping cart page (demo implementation)
- * In production, this would connect to Payload ecommerce cart
+ * Shows shopping cart with items, quantities, and total
+ * Uses useCart hook with localStorage
  */
 export default function CartPage() {
-  return (
-    <>
+  const { items, itemCount, total, removeItem, updateQuantity, clearCart } = useCart()
+
+  if (items.length === 0) {
+    return (
       <Section padding="lg">
         <Container>
           <div className="max-w-4xl mx-auto">
@@ -33,7 +39,7 @@ export default function CartPage() {
             <div className="mt-8 p-6 bg-muted rounded-lg">
               <h3 className="font-semibold mb-2">🛍️ About the Cart</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                This is a demo implementation. The Payload ecommerce plugin provides:
+                This cart uses localStorage for persistence. The Payload ecommerce plugin provides:
               </p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>✓ Persistent shopping carts (database-backed)</li>
@@ -42,16 +48,110 @@ export default function CartPage() {
                 <li>✓ Automatic cart recovery</li>
                 <li>✓ Real-time inventory checking</li>
               </ul>
-              <div className="mt-4 pt-4 border-t">
-                <p className="text-xs text-muted-foreground">
-                  To enable full cart functionality, configure the Payload ecommerce context in your app.
-                  See the Payload ecommerce plugin documentation for details.
-                </p>
-              </div>
             </div>
           </div>
         </Container>
       </Section>
-    </>
+    )
+  }
+
+  return (
+    <Section padding="lg">
+      <Container>
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-4xl font-bold">Shopping Cart</h1>
+            <Button variant="outline" size="sm" onClick={clearCart}>
+              Clear Cart
+            </Button>
+          </div>
+
+          {/* Cart Items */}
+          <div className="space-y-4 mb-8">
+            {items.map((item) => (
+              <Card key={item.id} className="p-6">
+                <div className="flex gap-6">
+                  {/* Product Image Placeholder */}
+                  <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-4xl flex-shrink-0">
+                    {item.name.includes('Coffee') && '☕'}
+                    {item.name.includes('Tea') && '🍵'}
+                    {item.name.includes('Mug') && '🍺'}
+                    {item.name.includes('Grinder') && '⚙️'}
+                    {item.name.includes('Press') && '🫖'}
+                    {item.name.includes('Infuser') && '🌿'}
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {formatCurrency(item.price, 'USD')} each
+                    </p>
+
+                    <div className="flex items-center gap-4">
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        >
+                          −
+                        </Button>
+                        <span className="w-12 text-center font-medium">{item.quantity}</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        >
+                          +
+                        </Button>
+                      </div>
+
+                      {/* Remove Button */}
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => removeItem(item.id)}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Item Total */}
+                  <div className="text-right">
+                    <p className="text-lg font-bold">
+                      {formatCurrency(item.price * item.quantity, 'USD')}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.quantity} × {formatCurrency(item.price, 'USD')}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Cart Summary */}
+          <Card className="p-6 bg-muted">
+            <div className="space-y-4">
+              <div className="flex justify-between text-lg">
+                <span>Subtotal ({itemCount} items):</span>
+                <span className="font-bold">{formatCurrency(total, 'USD')}</span>
+              </div>
+              <div className="flex gap-4">
+                <Button size="lg" variant="outline" asChild className="flex-1">
+                  <Link href="/store">← Continue Shopping</Link>
+                </Button>
+                <Button size="lg" asChild className="flex-1">
+                  <Link href="/checkout">Proceed to Checkout →</Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </Container>
+    </Section>
   )
 }

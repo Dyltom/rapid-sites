@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Container, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { AddToCartButton } from '@/components/cart/AddToCartButton'
 import { formatCurrency } from '@/lib/utils'
 
 // Demo products (same as store page)
@@ -191,16 +192,20 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
               {/* Add to Cart */}
               <div className="flex gap-4">
-                <Button
-                  size="lg"
-                  className="flex-1"
-                  disabled={product.stock === 0}
-                  asChild
-                >
-                  <Link href="/cart">
-                    {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-                  </Link>
-                </Button>
+                {product.stock === 0 ? (
+                  <Button size="lg" className="flex-1" disabled>
+                    Out of Stock
+                  </Button>
+                ) : (
+                  <AddToCartButton
+                    product={{
+                      id: product.id,
+                      slug: product.slug,
+                      name: product.name,
+                      price: product.price,
+                    }}
+                  />
+                )}
                 <Button size="lg" variant="outline" asChild>
                   <Link href="/store">← Back to Store</Link>
                 </Button>

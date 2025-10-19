@@ -7,3 +7,5 @@ export type {
   FormActions,
   UseFormStateReturn,
 } from './useFormState'
+export { useCart } from './useCart'
+export type { CartItem } from './useCart'
