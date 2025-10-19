@@ -71,6 +71,7 @@ export function Navigation({
                 </Link>
               </Button>
             )}
+            <CartButton />
           </div>
 
           {/* Mobile Menu Button */}
