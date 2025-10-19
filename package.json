@@ -24,11 +24,12 @@
     "validate": "pnpm type-check && pnpm lint && pnpm test run",
     "validate:all": "pnpm type-check && pnpm lint && pnpm test run && pnpm test:e2e",
     "prepare": "husky",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f",
-    "docker:clean": "docker-compose down -v",
-    "docker:reset": "docker-compose down -v && docker-compose up -d --build"
+    "docker:up": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose up -d",
+    "docker:down": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose down",
+    "docker:logs": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose logs -f",
+    "docker:clean": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose down -v",
+    "docker:reset": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose down -v && docker compose up -d --build",
+    "docker:ps": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose ps"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.60.0",
