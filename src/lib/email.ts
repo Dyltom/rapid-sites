@@ -1,11 +1,27 @@
 /**
  * Email Service
- * Send transactional emails via Resend
+ * Send transactional emails via Resend with React Email templates
  */
 
 import { Resend } from 'resend'
+import { render } from '@react-email/render'
+import { ContactFormEmail, NewsletterWelcomeEmail, OrderConfirmationEmail } from '@/emails'
 
-const resend = new Resend(process.env['RESEND_API_KEY'] || '')
+/**
+ * Lazy-loaded Resend client to avoid build-time errors when API key is missing
+ */
+let resendClient: Resend | null = null
+
+function getResendClient(): Resend {
+  if (!resendClient) {
+    const apiKey = process.env['RESEND_API_KEY']
+    if (!apiKey) {
+      throw new Error('RESEND_API_KEY environment variable is not set')
+    }
+    resendClient = new Resend(apiKey)
+  }
+  return resendClient
+}
 
 /**
  * Send contact form email
@@ -20,18 +36,23 @@ export async function sendContactFormEmail(params: {
   message: string
   tenantName: string
 }) {
+  const resend = getResendClient()
+
+  const emailHtml = await render(
+    ContactFormEmail({
+      tenantName: params.tenantName,
+      name: params.name,
+      email: params.email,
+      phone: params.phone,
+      message: params.message,
+    })
+  )
+
   const { data, error } = await resend.emails.send({
     from: params.from,
     to: params.to,
     subject: `New Contact Form Submission from ${params.tenantName}`,
-    html: `
-      <h2>New Contact Form Submission</h2>
-      <p><strong>From:</strong> ${params.name}</p>
-      <p><strong>Email:</strong> ${params.email}</p>
-      ${params.phone ? `<p><strong>Phone:</strong> ${params.phone}</p>` : ''}
-      <p><strong>Message:</strong></p>
-      <p>${params.message.replace(/\n/g, '<br>')}</p>
-    `,
+    html: emailHtml,
   })
 
   if (error) {
@@ -51,17 +72,20 @@ export async function sendNewsletterConfirmation(params: {
   name?: string
   tenantName: string
 }) {
+  const resend = getResendClient()
+
+  const emailHtml = await render(
+    NewsletterWelcomeEmail({
+      tenantName: params.tenantName,
+      name: params.name,
+    })
+  )
+
   const { data, error } = await resend.emails.send({
     from: params.from,
     to: params.to,
     subject: `Welcome to ${params.tenantName} Newsletter`,
-    html: `
-      <h2>Thanks for Subscribing!</h2>
-      ${params.name ? `<p>Hi ${params.name},</p>` : '<p>Hi there,</p>'}
-      <p>You've successfully subscribed to our newsletter.</p>
-      <p>We'll keep you updated with our latest news and updates.</p>
-      <p>Thanks,<br>${params.tenantName}</p>
-    `,
+    html: emailHtml,
   })
 
   if (error) {
@@ -82,20 +106,25 @@ export async function sendOrderConfirmation(params: {
   orderId: string
   total: string
   tenantName: string
+  orderUrl?: string
 }) {
+  const resend = getResendClient()
+
+  const emailHtml = await render(
+    OrderConfirmationEmail({
+      tenantName: params.tenantName,
+      name: params.name,
+      orderId: params.orderId,
+      total: params.total,
+      orderUrl: params.orderUrl,
+    })
+  )
+
   const { data, error } = await resend.emails.send({
     from: params.from,
     to: params.to,
     subject: `Order Confirmation - ${params.orderId}`,
-    html: `
-      <h2>Order Confirmed!</h2>
-      <p>Hi ${params.name},</p>
-      <p>Thank you for your order!</p>
-      <p><strong>Order ID:</strong> ${params.orderId}</p>
-      <p><strong>Total:</strong> ${params.total}</p>
-      <p>We'll send you another email when your order ships.</p>
-      <p>Thanks,<br>${params.tenantName}</p>
-    `,
+    html: emailHtml,
   })
 
   if (error) {

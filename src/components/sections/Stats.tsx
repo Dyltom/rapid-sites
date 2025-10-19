@@ -1,4 +1,5 @@
 import { Container, Section } from '@/components/layout'
+import { SectionHeader } from './SectionHeader'
 import type { StatsSectionData } from '@/types'
 import { cn } from '@/lib/utils'
 
@@ -10,7 +11,7 @@ export function Stats({ title, stats, layout = 'grid' }: StatsSectionData) {
   return (
     <Section padding="lg" background="muted">
       <Container>
-        {title && <h2 className="text-3xl font-bold text-center mb-12">{title}</h2>}
+        <SectionHeader title={title} />
 
         <div
           className={cn(

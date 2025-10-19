@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
 import { Container, Grid, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
+import { SectionHeader } from './SectionHeader'
+import { useFormState } from '@/hooks'
 
 /**
  * Contact Section Props
@@ -21,6 +22,16 @@ interface ContactSectionProps {
 }
 
 /**
+ * Contact form field types
+ */
+type ContactFormFields = {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
+
+/**
  * Contact Section Component
  * Contact form with optional contact information
  */
@@ -32,48 +43,45 @@ export function Contact({
   address,
   showMap = false,
 }: ContactSectionProps) {
-  const [formState, setFormState] = useState({
+  const form = useFormState<ContactFormFields>({
     name: '',
     email: '',
     phone: '',
     message: '',
   })
-  const [submitting, setSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitting(true)
+    form.setStatus('loading')
+    form.clearErrors()
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formState),
+        body: JSON.stringify(form.values),
       })
 
       const data = await response.json()
 
       if (response.ok) {
-        setFormState({ name: '', email: '', phone: '', message: '' })
+        form.setStatus('success')
+        form.reset()
         alert(data.data?.message || 'Message sent successfully!')
       } else {
+        form.setStatus('error')
         alert(data.message || 'Failed to send message')
       }
     } catch {
+      form.setStatus('error')
       alert('Failed to send message. Please try again.')
-    } finally {
-      setSubmitting(false)
     }
   }
 
   return (
     <Section padding="lg">
       <Container>
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold mb-4">{title}</h2>
-          {description && <p className="text-lg text-muted-foreground">{description}</p>}
-        </div>
+        <SectionHeader title={title} description={description} />
 
         <Grid cols={showMap || email || phone || address ? 2 : 1} gap="lg">
           {/* Contact Form */}
@@ -84,10 +92,10 @@ export function Contact({
                 <Input
                   id="name"
                   name="name"
-                  value={formState.name}
-                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                  value={form.values.name}
+                  onChange={(e) => form.setValue('name', e.target.value)}
                   required
-                  disabled={submitting}
+                  disabled={form.isSubmitting}
                 />
               </div>
 
@@ -97,10 +105,10 @@ export function Contact({
                   id="email"
                   name="email"
                   type="email"
-                  value={formState.email}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  value={form.values.email}
+                  onChange={(e) => form.setValue('email', e.target.value)}
                   required
-                  disabled={submitting}
+                  disabled={form.isSubmitting}
                 />
               </div>
 
@@ -110,9 +118,9 @@ export function Contact({
                   id="phone"
                   name="phone"
                   type="tel"
-                  value={formState.phone}
-                  onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                  disabled={submitting}
+                  value={form.values.phone}
+                  onChange={(e) => form.setValue('phone', e.target.value)}
+                  disabled={form.isSubmitting}
                 />
               </div>
 
@@ -122,15 +130,15 @@ export function Contact({
                   id="message"
                   name="message"
                   rows={5}
-                  value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                  value={form.values.message}
+                  onChange={(e) => form.setValue('message', e.target.value)}
                   required
-                  disabled={submitting}
+                  disabled={form.isSubmitting}
                 />
               </div>
 
-              <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? 'Sending...' : 'Send Message'}
+              <Button type="submit" className="w-full" disabled={form.isSubmitting}>
+                {form.isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
           </Card>

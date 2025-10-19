@@ -1,5 +1,14 @@
 import '../globals.css'
 
+/**
+ * Marketing Layout
+ *
+ * This layout wraps all marketing pages (homepage, blog, etc.)
+ * It applies Tailwind CSS styles and provides the HTML structure.
+ *
+ * NOTE: The (payload) route group has its own layout that does NOT
+ * import globals.css to avoid conflicts with Payload admin styles.
+ */
 export default function MarketingLayout({
   children,
 }: {
@@ -8,7 +17,7 @@ export default function MarketingLayout({
   return (
     <html lang="en">
       <head />
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   )
 }

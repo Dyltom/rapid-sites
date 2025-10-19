@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { Container, Section } from '@/components/layout'
+import { Container, Section, Grid } from '@/components/layout'
 import { Badge } from '@/components/ui/badge'
+import { SectionHeader } from './SectionHeader'
 import type { GalleryImage } from '@/types'
-import { cn } from '@/lib/utils'
 
 /**
  * Gallery Section Props
@@ -46,13 +46,7 @@ export function GallerySection({
   return (
     <Section padding="lg">
       <Container>
-        {/* Header */}
-        {(title || description) && (
-          <div className="text-center max-w-3xl mx-auto mb-8">
-            {title && <h2 className="text-3xl font-bold mb-4">{title}</h2>}
-            {description && <p className="text-lg text-muted-foreground">{description}</p>}
-          </div>
-        )}
+        <SectionHeader title={title} description={description} className="mb-8" />
 
         {/* Category Filter */}
         {showCategories && categories.length > 0 && (
@@ -78,14 +72,7 @@ export function GallerySection({
         )}
 
         {/* Gallery Grid */}
-        <div
-          className={cn(
-            'grid gap-4',
-            columns === 2 && 'grid-cols-1 sm:grid-cols-2',
-            columns === 3 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-            columns === 4 && 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
-          )}
-        >
+        <Grid cols={columns} gap="sm">
           {filteredImages.map((item) => (
             <div
               key={item.id}
@@ -104,7 +91,7 @@ export function GallerySection({
               )}
             </div>
           ))}
-        </div>
+        </Grid>
       </Container>
     </Section>
   )

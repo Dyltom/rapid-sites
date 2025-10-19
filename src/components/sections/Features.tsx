@@ -1,5 +1,6 @@
 import { Container, Grid, Section } from '@/components/layout'
 import { Card } from '@/components/ui/card'
+import { SectionHeader } from './SectionHeader'
 import type { FeaturesSectionData } from '@/types'
 
 /**
@@ -16,13 +17,7 @@ export function Features({
   return (
     <Section padding="lg">
       <Container>
-        {/* Header */}
-        {(title || description) && (
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            {title && <h2 className="text-3xl font-bold mb-4">{title}</h2>}
-            {description && <p className="text-lg text-muted-foreground">{description}</p>}
-          </div>
-        )}
+        <SectionHeader title={title} description={description} />
 
         {/* Features */}
         {layout === 'grid' ? (

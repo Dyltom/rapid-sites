@@ -1,6 +1,7 @@
 'use client'
 
 import { Container, Section } from '@/components/layout'
+import { SectionHeader } from './SectionHeader'
 
 /**
  * Booking Section Props
@@ -30,13 +31,7 @@ export function Booking({
   return (
     <Section padding="lg">
       <Container>
-        {/* Header */}
-        {(title || description) && (
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            {title && <h2 className="text-3xl font-bold mb-4">{title}</h2>}
-            {description && <p className="text-lg text-muted-foreground">{description}</p>}
-          </div>
-        )}
+        <SectionHeader title={title} description={description} />
 
         {/* Cal.com Embed */}
         <div className="max-w-4xl mx-auto">

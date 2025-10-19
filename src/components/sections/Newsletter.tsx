@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import { Container, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { isValidEmail } from '@/lib/validation'
+import { useFormState } from '@/hooks'
 
 /**
  * Newsletter Section Props
@@ -20,6 +20,13 @@ interface NewsletterSectionProps {
 }
 
 /**
+ * Newsletter form fields
+ */
+type NewsletterFormFields = {
+  email: string
+}
+
+/**
  * Newsletter Section Component
  * Email signup form for newsletter subscriptions
  */
@@ -31,40 +38,38 @@ export function Newsletter({
   background = 'muted',
   className,
 }: NewsletterSectionProps) {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [error, setError] = useState('')
+  const form = useFormState<NewsletterFormFields>({ email: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
+    form.clearErrors()
 
     // Validate email
-    if (!isValidEmail(email)) {
-      setError('Please enter a valid email address')
+    if (!isValidEmail(form.values.email)) {
+      form.setError('email', 'Please enter a valid email address')
       return
     }
 
-    setStatus('loading')
+    form.setStatus('loading')
 
     try {
       // TODO: Submit to API
       // const response = await fetch('/api/newsletter/subscribe', {
       //   method: 'POST',
-      //   body: JSON.stringify({ email }),
+      //   body: JSON.stringify({ email: form.values.email }),
       // })
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      setStatus('success')
-      setEmail('')
+      form.setStatus('success')
+      form.reset()
 
       // Reset success message after 3 seconds
-      setTimeout(() => setStatus('idle'), 3000)
+      setTimeout(() => form.setStatus('idle'), 3000)
     } catch {
-      setStatus('error')
-      setError('Something went wrong. Please try again.')
+      form.setStatus('error')
+      form.setError('email', 'Something went wrong. Please try again.')
     }
   }
 
@@ -85,28 +90,28 @@ export function Newsletter({
           <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
             <Input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.values.email}
+              onChange={(e) => form.setValue('email', e.target.value)}
               placeholder={placeholder}
-              disabled={status === 'loading' || status === 'success'}
+              disabled={form.isSubmitting || form.status === 'success'}
               className="flex-1"
               aria-label="Email address"
             />
             <Button
               type="submit"
-              disabled={status === 'loading' || status === 'success'}
+              disabled={form.isSubmitting || form.status === 'success'}
             >
-              {status === 'loading' ? 'Subscribing...' : status === 'success' ? 'Subscribed!' : buttonText}
+              {form.isSubmitting ? 'Subscribing...' : form.status === 'success' ? 'Subscribed!' : buttonText}
             </Button>
           </form>
 
-          {error && (
+          {form.errors.email && (
             <p className="text-sm text-destructive mt-2" role="alert">
-              {error}
+              {form.errors.email}
             </p>
           )}
 
-          {status === 'success' && (
+          {form.status === 'success' && (
             <p className="text-sm text-success mt-2" role="status">
               Thanks for subscribing! Check your email for confirmation.
             </p>

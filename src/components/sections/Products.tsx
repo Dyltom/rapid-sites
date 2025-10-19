@@ -4,6 +4,7 @@ import { Container, Grid, Section } from '@/components/layout'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { SectionHeader } from './SectionHeader'
 import { formatCurrency } from '@/lib/utils'
 
 /**
@@ -50,13 +51,7 @@ export function Products({
   return (
     <Section padding="lg">
       <Container>
-        {/* Header */}
-        {(title || description) && (
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            {title && <h2 className="text-3xl font-bold mb-4">{title}</h2>}
-            {description && <p className="text-lg text-muted-foreground">{description}</p>}
-          </div>
-        )}
+        <SectionHeader title={title} description={description} />
 
         {/* Products Grid */}
         <Grid cols={columns} gap="lg">
