@@ -19,7 +19,8 @@ import { Tenants } from './payload/collections/Tenants'
 import { TeamMembers } from './payload/collections/TeamMembers'
 import { TestimonialsCollection } from './payload/collections/TestimonialsCollection'
 import { Gallery } from './payload/collections/Gallery'
-import { Products } from './payload/collections/Products'
+// NOTE: Products collection is created by ecommercePlugin, not imported here
+// import { Products } from './payload/collections/Products'
 import { Newsletter } from './payload/collections/Newsletter'
 
 const filename = fileURLToPath(import.meta.url)
@@ -61,7 +62,7 @@ export default buildConfig({
     TeamMembers,
     TestimonialsCollection,
     Gallery,
-    Products,
+    // Products collection created by ecommercePlugin
     Newsletter,
   ],
   editor: lexicalEditor({}),
