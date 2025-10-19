@@ -1,38 +1,71 @@
 # Known Issues
 
-## ⚠️ **Payload CMS Admin Panel - CodeEditor Error**
+## ⚠️ **Payload CMS Admin Panel - BROKEN**
 
-**Status**: BROKEN
-**Severity**: HIGH
+**Status**: ❌ **NON-FUNCTIONAL**
+**Severity**: **CRITICAL - BLOCKS CONTENT MANAGEMENT**
 **Source**: Payload CMS 3.60.0 internal bug (not our code)
+
+### The Truth
+**The admin panel is BROKEN and cannot be used.**
+
+Despite returning HTTP 200, the admin UI has a JavaScript error that breaks functionality.
 
 ### Error Details
 ```
 TypeError: Cannot destructure property 'config' of 'ue(...)' as it is undefined.
-    at Pn (../src/elements/CodeEditor/CodeEditor.tsx:87:32)
+Location: node_modules/@payloadcms/.../CodeEditor.tsx:87:32
+Frequency: Every admin page load
 ```
 
-### What Works
-- ✅ Admin panel loads (HTTP 200)
-- ✅ Routes to create-first-user
-- ✅ Database connection works
+### What Actually Works
+- ✅ Admin pages return HTTP 200
+- ✅ Database connection successful
+- ✅ Schema pulled from database
+- ✅ Routes exist (/admin, /admin/login, /admin/create-first-user)
 
-### What's Broken
-- ❌ Admin panel has JavaScript error
-- ❌ CodeEditor component fails to load
-- ❌ Cannot create users/content (broken by JS error)
+### What's Broken (The Reality)
+- ❌ **JavaScript error breaks the UI**
+- ❌ **Cannot create users** (UI broken)
+- ❌ **Cannot manage content** (UI broken)
+- ❌ **CodeEditor component fails** (Payload's code)
+- ❌ **Admin panel unusable** despite loading
 
 ### Root Cause
-Payload CMS 3.60.0 has an internal bug in the CodeEditor component where it tries to destructure `config` from an undefined context.
+**Payload CMS 3.60.0 has a bug** in their CodeEditor React component. The component tries to access `config` from a React context that returns `undefined`.
 
-### Temporary Workaround
-None currently. This requires either:
-1. Payload CMS fix (wait for 3.60.1+)
-2. Downgrade to earlier Payload version
-3. Disable code editor fields in collections
+**This is NOT our configuration** - it's in Payload's bundled code:
+- File: `node_modules/@payloadcms/.../CodeEditor.tsx`
+- Line 87: `rest.onChange?.(value, ev)`
+- Issue: `ue()` hook returns `undefined` instead of config object
 
 ### Impact
-**Admin panel is currently NON-FUNCTIONAL** despite loading successfully.
+🚨 **CRITICAL**: Cannot use CMS for content management
+- No user creation possible
+- No content editing possible
+- No media uploads possible
+- Admin panel exists but is broken
+
+### Solutions
+**Option 1: Wait for Payload Fix**
+- Monitor: https://github.com/payloadcms/payload/issues
+- Wait for version 3.60.1+ or 3.61.0
+
+**Option 2: Downgrade Payload** (Risky)
+- Try Payload 3.5x versions
+- May have breaking changes
+- Would need testing
+
+**Option 3: Use Alternative** (Recommended for now)
+- Consider Sanity, Strapi, or Contentful temporarily
+- Or manage content via direct database access
+- Or wait for Payload fix
+
+### Current Recommendation
+**DO NOT deploy for clients yet** - admin panel is broken.
+- Public website works perfectly ✅
+- But cannot manage content ❌
+- Wait for Payload CMS bug fix before production use
 
 ---
 
