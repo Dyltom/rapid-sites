@@ -7,12 +7,30 @@ import {
   withErrorHandler,
 } from '@/lib/api'
 import { sendContactFormEmail } from '@/lib/email'
-import { isValidEmail } from '@/lib/validation'
+import { contactFormSchema } from '@/lib/schemas'
+import { rateLimit, getClientIP } from '@/lib/rate-limit'
 
 /**
  * Contact Form Submission API
  */
 async function handleContactSubmission(request: NextRequest) {
+  // Rate limiting - protect from spam
+  const ip = getClientIP(request.headers)
+  const rateLimitResult = await rateLimit(ip)
+
+  if (!rateLimitResult.success) {
+    return errorResponse(
+      'Too many requests. Please try again later.',
+      'RATE_LIMIT_EXCEEDED',
+      429,
+      {
+        retryAfter: rateLimitResult.reset,
+        limit: rateLimitResult.limit,
+        remaining: rateLimitResult.remaining,
+      }
+    )
+  }
+
   const body = await parseRequestBody<{
     name: string
     email: string
@@ -24,19 +42,14 @@ async function handleContactSubmission(request: NextRequest) {
     return errorResponse('Invalid request body', 'INVALID_BODY', 400)
   }
 
-  // Validation
-  const errors = []
-  if (!body.name || body.name.trim().length === 0) {
-    errors.push({ field: 'name', message: 'Name is required' })
-  }
-  if (!body.email || !isValidEmail(body.email)) {
-    errors.push({ field: 'email', message: 'Valid email is required' })
-  }
-  if (!body.message || body.message.trim().length === 0) {
-    errors.push({ field: 'message', message: 'Message is required' })
-  }
+  // Zod validation - type-safe and comprehensive
+  const validation = contactFormSchema.safeParse(body)
 
-  if (errors.length > 0) {
+  if (!validation.success) {
+    const errors = validation.error.issues.map((issue) => ({
+      field: issue.path.join('.'),
+      message: issue.message,
+    }))
     return validationErrorResponse(errors)
   }
 
@@ -44,15 +57,18 @@ async function handleContactSubmission(request: NextRequest) {
   const tenantEmail = process.env['CONTACT_EMAIL'] || 'contact@rapidsites.dev'
   const tenantName = 'Rapid Sites' // TODO: Get from tenant context
 
+  // Use validated data
+  const validatedData = validation.data
+
   try {
     // Send email
     await sendContactFormEmail({
       from: process.env['EMAIL_FROM'] || 'noreply@rapidsites.dev',
       to: tenantEmail,
-      name: body.name,
-      email: body.email,
-      phone: body.phone,
-      message: body.message,
+      name: validatedData.name,
+      email: validatedData.email,
+      phone: validatedData.phone || undefined,
+      message: validatedData.message,
       tenantName,
     })
 

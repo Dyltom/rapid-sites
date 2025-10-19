@@ -1,4 +1,5 @@
 import '../globals.css'
+import { Analytics } from '@vercel/analytics/react'
 
 /**
  * Marketing Layout
@@ -17,7 +18,10 @@ export default function MarketingLayout({
   return (
     <html lang="en">
       <head />
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }

@@ -1,6 +1,8 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { ecommercePlugin, USD, EUR, GBP } from '@payloadcms/plugin-ecommerce'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import type { Access, FieldAccess } from 'payload'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -74,6 +76,24 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    // SEO plugin - adds meta fields to collections
+    seoPlugin({
+      collections: ['pages', 'posts', 'products'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `${doc?.title || doc?.name || 'Page'} | Rapid Sites`,
+      generateDescription: ({ doc }) =>
+        doc?.description || doc?.excerpt || 'Professional website solution',
+    }),
+    // Search plugin - fast indexed search
+    searchPlugin({
+      collections: ['pages', 'posts', 'products', 'team-members'],
+      defaultPriorities: {
+        pages: 10,
+        posts: 20,
+        products: 30,
+      },
+    }),
+    // Ecommerce plugin
     ecommercePlugin({
       // Required access control
       access: {
