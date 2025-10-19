@@ -195,11 +195,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   size="lg"
                   className="flex-1"
                   disabled={product.stock === 0}
+                  asChild
                 >
-                  {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  <Link href="/cart">
+                    {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/store">Back to Store</Link>
+                  <Link href="/store">← Back to Store</Link>
                 </Button>
               </div>
 
