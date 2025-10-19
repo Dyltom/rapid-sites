@@ -4,9 +4,9 @@
  * Tests the REAL contact endpoint with Zod validation and rate limiting
  */
 
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect } from 'vitest'
 
-const API_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const API_URL = process.env['NEXT_PUBLIC_APP_URL'] || 'http://localhost:3000'
 
 describe('Contact API Integration', () => {
   describe('POST /api/contact', () => {
