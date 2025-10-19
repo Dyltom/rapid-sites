@@ -1,0 +1,46 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Home" [ref=e5] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e6]: /
+    - link "Store" [ref=e7] [cursor=pointer]:
+      - /url: /store
+    - generic [ref=e8]: /
+    - generic [ref=e9]: Premium Coffee Beans
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]: ☕
+      - generic [ref=e15]: Featured
+      - generic [ref=e16]: Sale
+    - generic [ref=e17]:
+      - heading "Premium Coffee Beans" [level=1] [ref=e18]
+      - generic [ref=e19]:
+        - generic [ref=e20]: $24.99
+        - generic [ref=e21]: $29.99
+        - generic [ref=e22]: Save $5.00
+      - paragraph [ref=e24]: ✓ In Stock - 50 available
+      - generic [ref=e25]:
+        - paragraph [ref=e26]: Organic, fair-trade coffee beans sourced from the highlands of Colombia. Rich, smooth flavor with notes of chocolate and caramel.
+        - paragraph [ref=e27]: Our Premium Coffee Beans are carefully sourced from sustainable farms in Colombia. Each batch is roasted to perfection to bring out the unique flavor profile. Perfect for pour-over, French press, or espresso.
+      - paragraph [ref=e28]: "SKU: COF-001"
+      - generic [ref=e29]:
+        - button "Add to Cart" [ref=e30] [cursor=pointer]
+        - link "← Back to Store" [ref=e31] [cursor=pointer]:
+          - /url: /store
+      - generic [ref=e32]:
+        - heading "Product Features" [level=3] [ref=e33]
+        - list [ref=e34]:
+          - listitem [ref=e35]: ✓ Premium quality guaranteed
+          - listitem [ref=e36]: ✓ Fast shipping available
+          - listitem [ref=e37]: ✓ 30-day return policy
+          - listitem [ref=e38]: ✓ Secure checkout with Stripe
+      - generic [ref=e39]:
+        - paragraph [ref=e40]: 🛒 Powered by Payload Ecommerce Plugin
+        - paragraph [ref=e41]: This store uses Payload CMS ecommerce plugin with Orders, Carts, Variants, and Stripe integration.
+  - button "Open Next.js Dev Tools" [ref=e47] [cursor=pointer]:
+    - img [ref=e48]
+  - alert [ref=e51]
+```

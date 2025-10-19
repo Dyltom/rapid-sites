@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import type { NavigationProps } from '@/types'
 import { Container } from '@/components/layout'
 import { Button } from '@/components/ui/button'
+import { CartButton } from '@/components/cart/CartButton'
 
 /**
  * Navigation Component
