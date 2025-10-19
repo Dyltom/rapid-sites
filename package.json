@@ -31,7 +31,8 @@
     "docker:reset": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose down -v && docker compose up -d --build",
     "docker:ps": "export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock && docker compose ps",
     "email": "email dev --dir src/emails --port 3002",
-    "email:export": "email export"
+    "email:export": "email export",
+    "seed": "tsx src/scripts/seed.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.60.0",
