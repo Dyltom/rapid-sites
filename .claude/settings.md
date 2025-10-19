@@ -17,11 +17,27 @@ This is a Next.js-based multi-tenant website framework for rapidly building and 
 
 ## Code Style & Conventions
 
-### General Guidelines
+### General Guidelines (CRITICAL)
 
-- Use TypeScript for all code with strict type checking
+**Quality First, Always:**
+- Test BEFORE claiming something works
+- Be honest about what's tested vs what's not
+- "It compiles" ≠ "It works"
+- Manual verification required for new features
+
+**TypeScript (Strict):**
+- Use TypeScript for ALL code with strict type checking
+- ZERO `any` usage (enforced)
+- All types centralized in `src/types/`
+- Import types from `@/types` only
+- 100% type coverage required
+
+**Architecture:**
 - Follow Next.js 15 App Router conventions
 - Use server components by default, client components only when needed
+- DRY principles - no code duplication
+- Single source of truth for everything
+- Reusable components and utilities
 - Prefer composition over inheritance
 - Write self-documenting code with clear naming
 
@@ -92,17 +108,29 @@ export function MyComponent({ title, description }: MyComponentProps) {
 4. Run `pnpm dev` to start development server
 5. Run `pnpm validate` to ensure clean starting point
 
-### When Adding Features
+### When Adding Features (STRICT PROCESS)
+
+**NEVER skip testing. NEVER claim something works without verification.**
 
 1. Create feature branch from `main`
 2. Write code following DRY principles
-3. **Add tests for new functionality** (REQUIRED)
-4. Update relevant documentation
-5. Update ROADMAP.md if completing a task
-6. **Run `pnpm validate`** - MUST pass
-7. **Test in browser** - Manual verification
-8. **Test Docker if infrastructure changed**
-9. Commit with descriptive messages
+3. **Add tests for new functionality** (REQUIRED - no exceptions)
+4. **Run `pnpm validate`** - MUST pass (0 errors, 0 warnings)
+5. **Test in browser** - REQUIRED manual verification
+6. **Test integrations** - If API/DB/external service involved
+7. **Test Docker if infrastructure changed** - Actual `docker build` test
+8. Update relevant documentation
+9. Update ROADMAP.md if completing a task
+10. Commit with descriptive, detailed messages
+11. **Only then** push to main
+
+**Red Flags to Avoid:**
+- ❌ "It should work" - TEST IT
+- ❌ "Production ready" - Did you test it?
+- ❌ "Code complete" - But does it run?
+- ❌ Skipping browser testing
+- ❌ Assuming integrations work
+- ❌ Not testing error cases
 
 ### Commit Message Format
 
@@ -133,19 +161,37 @@ Types: feat, fix, docs, style, refactor, test, chore
 
 ## Component Library Usage
 
+### DRY Principles (CRITICAL)
+
+**Before creating ANY component, ask:**
+1. Does this already exist?
+2. Can I reuse an existing component?
+3. Can I make an existing component more generic?
+4. Will this be used in multiple places? → Centralize it
+5. Is this component-specific? → Keep it local
+
+**Type Safety:**
+- ALL components must have proper TypeScript props
+- NO inline prop types - use interface
+- Import shared types from `@/types`
+- Local props are OK if truly component-specific
+
 ### shadcn/ui Components
 
 - Copy components from shadcn/ui into `src/components/ui/`
 - Customize as needed for project requirements
 - Use CSS variables for theming
 - Keep components accessible (ARIA labels, keyboard nav)
+- **Add `name` attribute to all form inputs** (for testing + accessibility)
 
 ### Custom Components
 
 - Build reusable sections in `src/components/sections/`
 - Create full templates in `src/components/templates/`
-- Use TypeScript for props
+- Use TypeScript for props interfaces
 - Make components themeable via props or CSS variables
+- **Test components** (unit or E2E)
+- **Verify in browser** before committing
 
 ## Database & ORM
 
@@ -170,32 +216,92 @@ Types: feat, fix, docs, style, refactor, test, chore
 - Use Nixpacks or Dockerfile build method
 - Enable auto-deploy on push to main
 
-## Testing
+## Testing (MANDATORY - NO EXCEPTIONS)
+
+### Golden Rule
+**"Not tested = Not working"**
+
+Do NOT say something is "ready" or "working" until you've:
+1. Written automated tests
+2. Run them and they pass
+3. Manually verified in browser/environment
+4. Tested error cases
+5. Documented what was tested
 
 ### Testing Requirements (CRITICAL)
 
-**BEFORE any deployment or merge to main:**
-1. Run `pnpm validate` - MUST pass (type-check + lint + test)
-2. Test Docker build: `docker build -t rapid-sites:test .`
-3. Test Docker Compose: `pnpm docker:up` (verify services start)
-4. Manual verification of new features in browser
-5. Check health endpoint: `curl http://localhost:3000/api/health`
+**BEFORE any deployment, merge, or claiming "it works":**
 
-**NEVER deploy without:**
-- ✅ All TypeScript errors fixed (strict mode)
+1. ✅ **Run `pnpm validate`** - MUST pass (type-check + lint + unit tests)
+2. ✅ **Run `pnpm test:e2e`** - MUST pass (all E2E tests)
+3. ✅ **Test Docker build**: `docker build -t rapid-sites:test .`
+4. ✅ **Manual browser testing** - REQUIRED for ALL new features
+5. ✅ **Test error cases** - What happens when things fail?
+6. ✅ **Test integrations** - If using external APIs, test them
+7. ✅ **Check health endpoint**: `curl http://localhost:3000/api/health`
+
+**NEVER deploy, commit to main, or claim "production ready" without:**
+- ✅ All TypeScript errors fixed (strict mode, zero `any`)
 - ✅ Zero ESLint warnings/errors
-- ✅ All tests passing (100%)
+- ✅ All tests passing (100% - currently 105/105)
+- ✅ E2E tests passing (browser verification)
 - ✅ Docker build successful
-- ✅ Docker Compose starts without errors
-- ✅ Browser testing completed
+- ✅ Manual browser testing completed
+- ✅ Error cases tested (404, errors, missing data)
+- ✅ Forms actually submit (check network tab)
+- ✅ Responsive design verified (mobile/tablet/desktop)
 
-### Test Coverage
+**Testing Levels (All Required):**
 
-- Unit tests for utilities and helpers (required)
-- Integration tests for API routes (required)
-- E2E tests for critical user flows (recommended)
-- Test multi-tenancy isolation (required)
-- Browser testing for new UI components (required)
+1. **Unit Tests** (Vitest)
+   - Test all utilities, helpers, validators
+   - Test business logic
+   - Test pure functions
+   - Aim for high coverage
+
+2. **E2E Tests** (Playwright)
+   - Test critical user paths
+   - Test in real browser
+   - Test responsive design
+   - Test forms, navigation, interactions
+
+3. **Manual Browser Testing**
+   - Open every new page/component
+   - Click every button
+   - Submit every form
+   - Check console for errors
+   - Test on mobile viewport
+
+4. **Integration Testing**
+   - Test with real database
+   - Test with real API keys
+   - Test email actually sends
+   - Test payments actually process
+   - Test error responses
+
+### Test Coverage (Minimum Requirements)
+
+- ✅ Unit tests for utilities and helpers (REQUIRED)
+- ✅ E2E tests for all user flows (REQUIRED)
+- ✅ Browser testing for UI components (REQUIRED)
+- ✅ Integration tests for API routes (REQUIRED when DB available)
+- ✅ Error case testing (REQUIRED)
+- ✅ Responsive testing (REQUIRED)
+
+### Lessons Learned
+
+**What went wrong initially:**
+1. Said "Docker works" without testing Docker Compose
+2. Said "production ready" before E2E tests
+3. Didn't test forms - E2E found missing `name` attributes
+4. Assumed code = working (it doesn't)
+
+**What we do now:**
+1. Test EVERYTHING before claiming it works
+2. E2E tests catch real bugs
+3. Manual verification required
+4. Document what's tested vs what's not
+5. Be honest about test coverage
 
 ## Performance
 
