@@ -12,10 +12,11 @@ import { Badge } from '@/components/ui/badge'
  * Simple demo implementation (uses localStorage)
  */
 export function CartButton() {
-  const [itemCount, setItemCount] = useState(0)
+  const [itemCount] = useState(0)
 
   // TODO: Replace with Payload ecommerce cart context when configured
   // For now, this is a simple demo showing the UI
+  // Use setItemCount when cart functionality is connected
 
   return (
     <Button variant="outline" size="sm" asChild className="relative">
