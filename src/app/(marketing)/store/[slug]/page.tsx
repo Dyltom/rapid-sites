@@ -2,9 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Container, Section } from '@/components/layout'
 import { Navigation, Footer } from '@/components/navigation'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { AddToCartButton } from '@/components/cart/AddToCartButton'
+import { ProductActions } from '@/components/product/ProductActions'
 import { formatCurrency } from '@/lib/utils'
 
 // Demo products (same as store page)
@@ -193,26 +192,16 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               {/* SKU */}
               <p className="text-sm text-muted-foreground mb-6">SKU: {product.sku}</p>
 
-              {/* Add to Cart */}
-              <div className="flex gap-4">
-                {product.stock === 0 ? (
-                  <Button size="lg" className="flex-1" disabled>
-                    Out of Stock
-                  </Button>
-                ) : (
-                  <AddToCartButton
-                    product={{
-                      id: product.id,
-                      slug: product.slug,
-                      name: product.name,
-                      price: product.price,
-                    }}
-                  />
-                )}
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/store">← Back to Store</Link>
-                </Button>
-              </div>
+              {/* Product Actions - Quantity Selector + Add to Cart */}
+              <ProductActions
+                product={{
+                  id: product.id,
+                  slug: product.slug,
+                  name: product.name,
+                  price: product.price,
+                  stock: product.stock,
+                }}
+              />
 
               {/* Features */}
               <div className="mt-8 pt-8 border-t">

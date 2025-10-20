@@ -11,6 +11,7 @@ interface AddToCartButtonProps {
     name: string
     price: number
   }
+  quantity?: number
   disabled?: boolean
 }
 
@@ -19,7 +20,7 @@ interface AddToCartButtonProps {
  *
  * Client component that adds product to cart with toast notification
  */
-export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
+export function AddToCartButton({ product, quantity = 1, disabled }: AddToCartButtonProps) {
   const { addItem } = useCart()
   const { toast } = useToast()
 
@@ -29,12 +30,12 @@ export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
       slug: product.slug,
       name: product.name,
       price: product.price,
-      quantity: 1,
+      quantity,
     })
 
     toast({
       title: 'Added to cart!',
-      description: `${product.name} has been added to your cart.`,
+      description: `${quantity} × ${product.name} added to your cart.`,
     })
   }
 
