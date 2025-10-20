@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
+import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 
 interface AddToCartButtonProps {
@@ -17,11 +17,11 @@ interface AddToCartButtonProps {
 /**
  * Add to Cart Button
  *
- * Client component that adds product to cart
+ * Client component that adds product to cart with toast notification
  */
 export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
   const { addItem } = useCart()
-  const [added, setAdded] = useState(false)
+  const { toast } = useToast()
 
   const handleAddToCart = () => {
     addItem({
@@ -32,18 +32,20 @@ export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
       quantity: 1,
     })
 
-    setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
+    toast({
+      title: 'Added to cart!',
+      description: `${product.name} has been added to your cart.`,
+    })
   }
 
   return (
     <Button
       size="lg"
       className="flex-1"
-      disabled={disabled || added}
+      disabled={disabled}
       onClick={handleAddToCart}
     >
-      {added ? '✓ Added to Cart!' : 'Add to Cart'}
+      Add to Cart
     </Button>
   )
 }

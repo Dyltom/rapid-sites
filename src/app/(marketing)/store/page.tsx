@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { Container, Section, Grid } from '@/components/layout'
+import { Navigation, Footer } from '@/components/navigation'
 import { SectionHeader } from '@/components/sections'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { CartButton } from '@/components/cart/CartButton'
 import { formatCurrency } from '@/lib/utils'
 
 /**
@@ -92,14 +92,11 @@ export default async function StorePage() {
   const products = demoProducts
 
   return (
-    <>
-      {/* Cart Button - Fixed Position */}
-      <div className="fixed top-20 right-4 z-40">
-        <CartButton />
-      </div>
-
-      {/* Hero Section */}
-      <Section padding="lg" background="muted">
+    <div className="min-h-screen flex flex-col">
+      <Navigation logoText="Rapid Sites" items={[{ href: '/', label: 'Home' }, { href: '/store', label: 'Store' }]} />
+      <main className="flex-1">
+        {/* Hero Section */}
+        <Section padding="lg" background="muted">
         <Container>
           <SectionHeader
             title="Our Store"
@@ -249,6 +246,8 @@ export default async function StorePage() {
           </div>
         </Container>
       </Section>
-    </>
+      </main>
+      <Footer />
+    </div>
   )
 }

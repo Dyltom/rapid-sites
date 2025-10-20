@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Container, Section } from '@/components/layout'
+import { Navigation, Footer } from '@/components/navigation'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { AddToCartButton } from '@/components/cart/AddToCartButton'
-import { CartButton } from '@/components/cart/CartButton'
 import { formatCurrency } from '@/lib/utils'
 
 // Demo products (same as store page)
@@ -100,14 +100,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   return (
-    <>
-      {/* Cart Button - Fixed Position */}
-      <div className="fixed top-20 right-4 z-40">
-        <CartButton />
-      </div>
-
-      {/* Breadcrumb */}
-      <Section padding="sm">
+    <div className="min-h-screen flex flex-col">
+      <Navigation logoText="Rapid Sites" items={[{ href: '/', label: 'Home' }, { href: '/store', label: 'Store' }]} />
+      <main className="flex-1">
+        {/* Breadcrumb */}
+        <Section padding="sm">
         <Container>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-primary">
@@ -239,7 +236,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           </div>
         </Container>
       </Section>
-    </>
+      </main>
+      <Footer />
+    </div>
   )
 }
 

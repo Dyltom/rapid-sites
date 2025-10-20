@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
+import { useCart } from '@/hooks/useCart'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
@@ -9,14 +9,10 @@ import { Badge } from '@/components/ui/badge'
  * Cart Button Component
  *
  * Shows cart item count and links to cart page
- * Simple demo implementation (uses localStorage)
+ * Uses localStorage-based cart (ready for Payload ecommerce integration)
  */
 export function CartButton() {
-  const [itemCount] = useState(0)
-
-  // TODO: Replace with Payload ecommerce cart context when configured
-  // For now, this is a simple demo showing the UI
-  // Use setItemCount when cart functionality is connected
+  const { itemCount } = useCart()
 
   return (
     <Button variant="outline" size="sm" asChild className="relative">
