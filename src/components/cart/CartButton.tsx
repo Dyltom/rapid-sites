@@ -4,7 +4,7 @@ import { useCart } from '@/hooks/useCart'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CartDrawer } from '@/components/cart/CartDrawer'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 /**
  * Cart Button Component
@@ -14,18 +14,29 @@ import { useEffect, useState } from 'react'
  * Includes pulse animation when items are added
  */
 export function CartButton() {
-  const { itemCount } = useCart()
-  const [prevCount, setPrevCount] = useState(itemCount)
+  const { itemCount, isLoaded } = useCart()
+  const prevCountRef = useRef(itemCount)
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
-    if (itemCount > prevCount && itemCount > 0) {
-      // Item was added, trigger animation
+    // Only animate if cart is loaded and count actually increased
+    if (isLoaded && itemCount > prevCountRef.current && itemCount > 0) {
       setAnimate(true)
       setTimeout(() => setAnimate(false), 600)
     }
-    setPrevCount(itemCount)
-  }, [itemCount, prevCount])
+    prevCountRef.current = itemCount
+  }, [itemCount, isLoaded])
+
+  // Don't render badge until cart is loaded (prevents hydration mismatch)
+  if (!isLoaded) {
+    return (
+      <CartDrawer>
+        <Button variant="outline" size="sm" className="relative">
+          🛒 Cart
+        </Button>
+      </CartDrawer>
+    )
+  }
 
   return (
     <CartDrawer>

@@ -14,7 +14,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
  * Modern e-commerce pattern (Shopify, Amazon-style)
  */
 export function CartDrawer({ children }: { children: React.ReactNode }) {
-  const { items, itemCount, total, removeItem, updateQuantity } = useCart()
+  const { items, itemCount, total, removeItem, updateQuantity, isLoaded } = useCart()
 
   return (
     <Sheet>
@@ -23,10 +23,14 @@ export function CartDrawer({ children }: { children: React.ReactNode }) {
       </SheetTrigger>
       <SheetContent className="w-full sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Shopping Cart ({itemCount} items)</SheetTitle>
+          <SheetTitle>Shopping Cart ({isLoaded ? itemCount : 0} items)</SheetTitle>
         </SheetHeader>
 
-        {items.length === 0 ? (
+        {!isLoaded ? (
+          <div className="flex items-center justify-center h-full -mt-8">
+            <div className="text-muted-foreground">Loading...</div>
+          </div>
+        ) : items.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full -mt-8">
             <div className="text-6xl mb-4">🛒</div>
             <h3 className="text-xl font-semibold mb-2">Your cart is empty</h3>
