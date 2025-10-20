@@ -208,29 +208,28 @@ test.describe('Store E2E Tests', () => {
     await expect(badge).not.toBeVisible()
   })
 
-  test('should quick add item from store listing page', async ({ page }) => {
+  test('should quick add item and show in cart drawer immediately', async ({ page }) => {
     // Clear cart
     await page.goto('/store')
     await page.evaluate(() => localStorage.clear())
 
-    // Click "Add to Cart" button on first product card (not "Details")
-    const addToCartButtons = page.getByRole('button', { name: /Add to Cart/i })
-    const firstAddButton = addToCartButtons.first()
+    // Click "Add" button on first product card
+    const firstAddButton = page.getByRole('button', { name: /^Add$/i }).first()
     await expect(firstAddButton).toBeVisible()
     await firstAddButton.click()
 
-    // Wait for state update and verify button feedback
-    await expect(page.getByRole('button', { name: /Added!/i }).first()).toBeVisible({ timeout: 2000 })
+    // Wait for button feedback (shows checkmark)
+    await page.waitForTimeout(200)
 
-    // Reload page to ensure cart persisted
-    await page.reload()
+    // Open cart drawer immediately
+    const cartButton = page.getByRole('button', { name: /cart/i }).first()
+    await cartButton.click()
 
-    // Cart badge should update to show "1"
-    const badge = page.locator('.absolute.-top-2.-right-2', { hasText: '1' })
-    await expect(badge).toBeVisible()
-
-    // Verify item is in cart
-    await page.goto('/cart')
-    await expect(page.getByText(/Premium Coffee Beans/i)).toBeVisible()
+    // Cart drawer should show the item AND the total
+    const drawer = page.getByRole('dialog')
+    await expect(drawer).toBeVisible()
+    await expect(drawer.getByText(/Shopping Cart \(1 item/i)).toBeVisible()
+    await expect(drawer.getByRole('heading', { name: /Premium Coffee Beans/i })).toBeVisible()
+    await expect(drawer.getByText(/Total:/i)).toBeVisible()
   })
 })

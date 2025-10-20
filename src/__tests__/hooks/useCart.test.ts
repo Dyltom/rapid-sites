@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useCart } from '@/hooks/useCart'
+import { useCart, CartProvider } from '@/contexts/CartContext'
+import { createElement, type ReactNode } from 'react'
+
+// Wrapper component for tests
+function wrapper({ children }: { children: ReactNode }) {
+  return createElement(CartProvider, null, children)
+}
 
 // Mock localStorage
 const localStorageMock = (() => {
@@ -31,7 +37,7 @@ describe('useCart', () => {
 
   describe('Initialization', () => {
     it('should start with empty cart', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       expect(result.current.items).toEqual([])
       expect(result.current.itemCount).toBe(0)
@@ -44,7 +50,7 @@ describe('useCart', () => {
         JSON.stringify([{ id: '1', name: 'Test Product', price: 10, quantity: 2 }])
       )
 
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       expect(result.current.items).toHaveLength(1)
       expect(result.current.itemCount).toBe(2)
@@ -53,7 +59,7 @@ describe('useCart', () => {
 
   describe('addItem', () => {
     it('should add item to cart', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -71,7 +77,7 @@ describe('useCart', () => {
     })
 
     it('should increment quantity if item already in cart', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -99,7 +105,7 @@ describe('useCart', () => {
     })
 
     it('should save to localStorage', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -119,7 +125,7 @@ describe('useCart', () => {
 
   describe('removeItem', () => {
     it('should remove item from cart', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -142,7 +148,7 @@ describe('useCart', () => {
 
   describe('updateQuantity', () => {
     it('should update item quantity', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -163,7 +169,7 @@ describe('useCart', () => {
     })
 
     it('should remove item if quantity is 0', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -185,7 +191,7 @@ describe('useCart', () => {
 
   describe('clearCart', () => {
     it('should remove all items', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -216,7 +222,7 @@ describe('useCart', () => {
 
   describe('Calculated Values', () => {
     it('should calculate total correctly', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({
@@ -240,7 +246,7 @@ describe('useCart', () => {
     })
 
     it('should calculate itemCount correctly', () => {
-      const { result } = renderHook(() => useCart())
+      const { result } = renderHook(() => useCart(), { wrapper })
 
       act(() => {
         result.current.addItem({

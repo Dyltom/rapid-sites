@@ -63,7 +63,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Product Image */}
       <Link href={`/store/${product.slug}`} className="block">
         <div className="relative aspect-square w-full bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center text-6xl transition-transform duration-300 group-hover:scale-110">
+          <div className="absolute inset-0 flex items-center justify-center text-5xl transition-transform duration-300 group-hover:scale-110">
             {product.name.includes('Coffee') && '☕'}
             {product.name.includes('Tea') && '🍵'}
             {product.name.includes('Mug') && '🍺'}
@@ -95,50 +95,51 @@ export function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       {/* Product Info */}
-      <div className="p-4">
+      <div className="p-3">
         <Link href={`/store/${product.slug}`} className="block">
-          <h3 className="font-semibold text-lg mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-semibold text-base mb-1 line-clamp-2 group-hover:text-primary transition-colors">
             {product.name}
           </h3>
-          <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+          <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
             {product.description}
           </p>
 
           {/* Price */}
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xl font-bold">
+          <div className="flex items-center gap-1.5 mb-2">
+            <span className="text-lg font-bold">
               {formatCurrency(product.price, 'USD')}
             </span>
             {product.compareAtPrice && product.compareAtPrice > product.price && (
               <>
-                <span className="text-sm text-muted-foreground line-through">
+                <span className="text-xs text-muted-foreground line-through">
                   {formatCurrency(product.compareAtPrice, 'USD')}
                 </span>
-                <Badge variant="destructive" className="text-xs">
-                  Save {formatCurrency(product.compareAtPrice - product.price, 'USD')}
+                <Badge variant="destructive" className="text-[10px] px-1 py-0">
+                  −{formatCurrency(product.compareAtPrice - product.price, 'USD')}
                 </Badge>
               </>
             )}
           </div>
 
           {/* Stock Status */}
-          <p className={`text-sm font-medium ${stockColor} mb-4`}>
+          <p className={`text-xs font-medium ${stockColor} mb-3`}>
             {stockStatus === 'in-stock' && `In Stock (${product.stock})`}
-            {stockStatus === 'low-stock' && `Low Stock - Only ${product.stock} left!`}
+            {stockStatus === 'low-stock' && `Only ${product.stock} left!`}
             {stockStatus === 'out-of-stock' && 'Out of Stock'}
           </p>
         </Link>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           <Button
+            size="sm"
             className="flex-1"
             onClick={handleQuickAdd}
             disabled={product.stock === 0 || isAdding}
           >
-            {product.stock === 0 ? 'Out of Stock' : isAdding ? '✓ Added!' : 'Add to Cart'}
+            {product.stock === 0 ? 'Out of Stock' : isAdding ? '✓' : 'Add'}
           </Button>
-          <Button variant="outline" asChild>
+          <Button size="sm" variant="outline" asChild>
             <Link href={`/store/${product.slug}`}>Details</Link>
           </Button>
         </div>

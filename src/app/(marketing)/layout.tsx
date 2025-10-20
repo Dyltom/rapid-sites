@@ -1,6 +1,7 @@
 import '../globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from '@/components/ui/toaster'
+import { CartProvider } from '@/contexts/CartContext'
 
 /**
  * Marketing Layout
@@ -20,8 +21,10 @@ export default function MarketingLayout({
     <html lang="en">
       <head />
       <body suppressHydrationWarning>
-        {children}
-        <Toaster />
+        <CartProvider>
+          {children}
+          <Toaster />
+        </CartProvider>
         <Analytics />
       </body>
     </html>

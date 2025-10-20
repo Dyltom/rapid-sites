@@ -95,76 +95,44 @@ export default async function StorePage() {
       <Navigation logoText="Rapid Sites" items={[{ href: '/', label: 'Home' }, { href: '/store', label: 'Store' }]} />
       <main className="flex-1">
         {/* Hero Section */}
-        <Section padding="lg" background="muted">
+        <Section padding="sm" background="muted">
         <Container>
           <SectionHeader
             title="Our Store"
-            description="Discover our curated collection of premium products. Complete ecommerce powered by Payload CMS."
+            description="Premium products with complete ecommerce powered by Payload CMS"
           />
-
-          <div className="flex gap-4 justify-center mb-8">
-            <Badge variant="default">🛒 Ecommerce Plugin Active</Badge>
-            <Badge variant="default">💳 Stripe Ready</Badge>
-            <Badge variant="default">🌍 Multi-Currency</Badge>
-            <Badge variant="default">📦 Inventory Tracking</Badge>
-          </div>
         </Container>
       </Section>
 
       {/* Products Grid */}
-      <Section padding="lg">
+      <Section padding="md">
         <Container>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold">All Products</h2>
-            <p className="text-muted-foreground">{products.length} products available</p>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-bold">All Products</h2>
+            <p className="text-sm text-muted-foreground">{products.length} products</p>
           </div>
 
-          <Grid cols={3} gap="lg">
+          <Grid cols={3} gap="md">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </Grid>
-
-          {/* Features */}
-          <div className="mt-16 grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-4xl mb-2">🛒</div>
-              <h3 className="font-semibold mb-2">Complete Ecommerce</h3>
-              <p className="text-sm text-muted-foreground">
-                Orders, Carts, Variants, Transactions from Payload plugin
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">💳</div>
-              <h3 className="font-semibold mb-2">Stripe Integration</h3>
-              <p className="text-sm text-muted-foreground">
-                Secure payment processing ready to configure
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">📦</div>
-              <h3 className="font-semibold mb-2">Inventory Tracking</h3>
-              <p className="text-sm text-muted-foreground">
-                Real-time stock levels and low stock alerts
-              </p>
-            </div>
-          </div>
         </Container>
       </Section>
 
       {/* Admin CTA */}
-      <Section padding="lg" background="accent">
+      <Section padding="md" background="muted">
         <Container>
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">Manage Your Store</h2>
-            <p className="text-lg mb-8 opacity-90">
+            <h2 className="text-2xl font-bold mb-3">Manage Your Store</h2>
+            <p className="text-sm mb-6 text-muted-foreground">
               Visit the admin panel to create products, manage orders, and configure your store
             </p>
-            <div className="flex gap-4 justify-center">
-              <Button asChild size="lg" variant="default">
+            <div className="flex gap-3 justify-center flex-wrap">
+              <Button asChild size="default" variant="default">
                 <Link href="/admin/collections/products">Manage Products</Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="default" variant="outline">
                 <Link href="/admin/collections/orders">View Orders</Link>
               </Button>
             </div>
