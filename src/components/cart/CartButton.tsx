@@ -1,15 +1,15 @@
 'use client'
 
-import Link from 'next/link'
 import { useCart } from '@/hooks/useCart'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { CartDrawer } from '@/components/cart/CartDrawer'
 import { useEffect, useState } from 'react'
 
 /**
  * Cart Button Component
  *
- * Shows cart item count and links to cart page
+ * Shows cart item count and opens cart drawer
  * Uses localStorage-based cart (ready for Payload ecommerce integration)
  * Includes pulse animation when items are added
  */
@@ -28,8 +28,8 @@ export function CartButton() {
   }, [itemCount, prevCount])
 
   return (
-    <Button variant="outline" size="sm" asChild className="relative">
-      <Link href="/cart">
+    <CartDrawer>
+      <Button variant="outline" size="sm" className="relative">
         🛒 Cart
         {itemCount > 0 && (
           <Badge
@@ -41,7 +41,7 @@ export function CartButton() {
             {itemCount}
           </Badge>
         )}
-      </Link>
-    </Button>
+      </Button>
+    </CartDrawer>
   )
 }

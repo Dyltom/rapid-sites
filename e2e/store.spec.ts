@@ -30,18 +30,15 @@ test.describe('Store E2E Tests', () => {
     await expect(page.getByRole('link', { name: /Back to Store/i })).toBeVisible()
   })
 
-  test('should navigate from product to cart', async ({ page }) => {
-    await page.goto('/store/premium-coffee-beans')
+  test('should open cart drawer from button click', async ({ page }) => {
+    await page.goto('/store')
 
-    // Click cart button to navigate to cart
-    const cartLink = page.getByRole('link', { name: /cart/i }).first()
-    await cartLink.click()
+    // Click cart button to open drawer
+    const cartButton = page.getByRole('button', { name: /cart/i }).first()
+    await cartButton.click()
 
-    // Should navigate to cart
-    await expect(page).toHaveURL('/cart')
-
-    // Should show cart page
-    await expect(page.getByRole('heading', { name: /Shopping Cart/i })).toBeVisible()
+    // Should show cart drawer with empty state
+    await expect(page.getByText(/Your cart is empty/i)).toBeVisible()
   })
 
   test('should navigate back from cart to store', async ({ page }) => {
@@ -94,7 +91,7 @@ test.describe('Store E2E Tests', () => {
     await page.evaluate(() => localStorage.clear())
 
     // Cart button should initially show no badge (count 0)
-    const cartButton = page.getByRole('link', { name: /cart/i }).first()
+    const cartButton = page.getByRole('button', { name: /cart/i }).first()
     await expect(cartButton).toBeVisible()
 
     // Navigate to product detail
