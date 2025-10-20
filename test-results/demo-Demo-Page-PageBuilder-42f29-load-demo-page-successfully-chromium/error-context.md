@@ -1,0 +1,157 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Rapid Sites Demo" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: Rapid Sites Demo
+        - generic [ref=e8]:
+          - link "Home" [ref=e9] [cursor=pointer]:
+            - /url: /
+          - link "Features" [ref=e10] [cursor=pointer]:
+            - /url: "#features"
+          - link "Stats" [ref=e11] [cursor=pointer]:
+            - /url: "#stats"
+          - link "Contact" [ref=e12] [cursor=pointer]:
+            - /url: "#contact"
+          - link "GitHub" [ref=e13] [cursor=pointer]:
+            - /url: https://github.com/Dyltom/rapid-sites
+          - button "🛒 Cart" [ref=e14] [cursor=pointer]
+    - main [ref=e15]:
+      - generic [ref=e19]:
+        - paragraph [ref=e20]: DRY Architecture
+        - heading "Build with Configuration, Not Code" [level=1] [ref=e21]
+        - paragraph [ref=e22]: Define pages as data structures. No more template boilerplate. Type-safe, maintainable, and reusable.
+        - generic [ref=e23]:
+          - link "See How It Works" [ref=e24] [cursor=pointer]:
+            - /url: "#features"
+          - link "Read Blog" [ref=e25] [cursor=pointer]:
+            - /url: /blog
+      - generic [ref=e27]:
+        - heading "Framework Stats" [level=2] [ref=e29]
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e32]: 95+
+            - generic [ref=e33]: Tests Passing
+          - generic [ref=e34]:
+            - generic [ref=e35]: "5"
+            - generic [ref=e36]: Phases Complete
+          - generic [ref=e37]:
+            - generic [ref=e38]: 60+
+            - generic [ref=e39]: Components
+          - generic [ref=e40]:
+            - generic [ref=e41]: 100%
+            - generic [ref=e42]: Type Safety
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - heading "Why Use PageBuilder?" [level=2] [ref=e46]
+          - paragraph [ref=e47]: DRY principles make development faster and more maintainable
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: 📝
+            - heading "Configuration-Based" [level=3] [ref=e51]
+            - paragraph [ref=e52]: Define pages as JSON-like objects instead of writing JSX templates
+          - generic [ref=e53]:
+            - generic [ref=e54]: 🔄
+            - heading "Fully Reusable" [level=3] [ref=e55]
+            - paragraph [ref=e56]: Section components used across all pages without duplication
+          - generic [ref=e57]:
+            - generic [ref=e58]: ✅
+            - heading "Type-Safe" [level=3] [ref=e59]
+            - paragraph [ref=e60]: TypeScript ensures your configuration is always valid
+          - generic [ref=e61]:
+            - generic [ref=e62]: 🎯
+            - heading "Single Source of Truth" [level=3] [ref=e63]
+            - paragraph [ref=e64]: Update a section component once, apply everywhere
+          - generic [ref=e65]:
+            - generic [ref=e66]: 🚀
+            - heading "Rapid Development" [level=3] [ref=e67]
+            - paragraph [ref=e68]: Build new pages in minutes by composing existing sections
+          - generic [ref=e69]:
+            - generic [ref=e70]: 🛠️
+            - heading "Easy to Maintain" [level=3] [ref=e71]
+            - paragraph [ref=e72]: Clear separation between data and presentation logic
+      - generic [ref=e75]:
+        - heading "Ready to Build?" [level=2] [ref=e76]
+        - paragraph [ref=e77]: Start using the PageBuilder system for your next project
+        - generic [ref=e78]:
+          - link "View Source" [ref=e79] [cursor=pointer]:
+            - /url: https://github.com/Dyltom/rapid-sites
+          - link "Get Started" [ref=e80] [cursor=pointer]:
+            - /url: "#contact"
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - heading "Get in Touch" [level=2] [ref=e84]
+          - paragraph [ref=e85]: Have questions? Reach out to us
+        - generic [ref=e86]:
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - text: Name *
+              - textbox "Name *" [ref=e90]
+            - generic [ref=e91]:
+              - text: Email *
+              - textbox "Email *" [ref=e92]
+            - generic [ref=e93]:
+              - text: Phone
+              - textbox "Phone" [ref=e94]
+            - generic [ref=e95]:
+              - text: Message *
+              - textbox "Message *" [ref=e96]
+            - button "Send Message" [ref=e97] [cursor=pointer]
+          - generic [ref=e99]:
+            - heading "Contact Information" [level=3] [ref=e100]
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - paragraph [ref=e103]: Email
+                - link "hello@rapidsites.dev" [ref=e104] [cursor=pointer]:
+                  - /url: mailto:hello@rapidsites.dev
+              - generic [ref=e105]:
+                - paragraph [ref=e106]: Phone
+                - link "(555) 123-4567" [ref=e107] [cursor=pointer]:
+                  - /url: tel:(555) 123-4567
+    - contentinfo [ref=e108]:
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - link "Rapid Sites" [ref=e113] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e114]: Rapid Sites
+            - paragraph [ref=e115]: Multi-tenant Next.js framework built with DRY principles
+            - generic [ref=e116]:
+              - link "github" [ref=e117] [cursor=pointer]:
+                - /url: https://github.com/Dyltom/rapid-sites
+                - img [ref=e118]
+              - link "twitter" [ref=e120] [cursor=pointer]:
+                - /url: https://twitter.com
+                - img [ref=e121]
+          - generic [ref=e123]:
+            - heading "Framework" [level=3] [ref=e124]
+            - list [ref=e125]:
+              - listitem [ref=e126]:
+                - link "Home" [ref=e127] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e128]:
+                - link "Demo" [ref=e129] [cursor=pointer]:
+                  - /url: /demo
+              - listitem [ref=e130]:
+                - link "Blog" [ref=e131] [cursor=pointer]:
+                  - /url: /blog
+          - generic [ref=e132]:
+            - heading "Resources" [level=3] [ref=e133]
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - link "GitHub" [ref=e136] [cursor=pointer]:
+                  - /url: https://github.com/Dyltom/rapid-sites
+              - listitem [ref=e137]:
+                - link "Docs" [ref=e138] [cursor=pointer]:
+                  - /url: /docs
+        - generic [ref=e139]: © 2025 Rapid Sites. All rights reserved.
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=e145] [cursor=pointer]:
+    - img [ref=e146]
+  - alert [ref=e149]
+```

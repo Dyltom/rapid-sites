@@ -1,4 +1,10 @@
 import { PageBuilder, createPageConfig } from '@/lib/page-builder'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Rapid Sites - PageBuilder Demo',
+  description: 'See how to build pages using the PageBuilder configuration system',
+}
 
 /**
  * Demo Page using PageBuilder
