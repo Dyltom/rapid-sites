@@ -1,4 +1,10 @@
 import { ServiceBusinessTemplate } from '@/components/templates/ServiceBusinessTemplate'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Rapid Sites - Multi-Tenant Next.js Framework',
+  description: 'Build and deploy professional small business websites in minutes',
+}
 
 export default function HomePage() {
   return (
