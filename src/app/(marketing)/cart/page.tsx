@@ -5,6 +5,7 @@ import { Container, Section } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useCart } from '@/hooks/useCart'
+import { useToast } from '@/hooks/use-toast'
 import { formatCurrency } from '@/lib/utils'
 
 /**
@@ -15,6 +16,34 @@ import { formatCurrency } from '@/lib/utils'
  */
 export default function CartPage() {
   const { items, itemCount, total, removeItem, updateQuantity, clearCart } = useCart()
+  const { toast } = useToast()
+
+  const handleRemoveItem = (id: string, name: string) => {
+    removeItem(id)
+    toast({
+      title: 'Item removed',
+      description: `${name} has been removed from your cart.`,
+    })
+  }
+
+  const handleUpdateQuantity = (id: string, quantity: number, name: string) => {
+    updateQuantity(id, quantity)
+    if (quantity > 0) {
+      toast({
+        title: 'Quantity updated',
+        description: `${name} quantity updated to ${quantity}.`,
+      })
+    }
+  }
+
+  const handleClearCart = () => {
+    clearCart()
+    toast({
+      title: 'Cart cleared',
+      description: 'All items have been removed from your cart.',
+      variant: 'destructive',
+    })
+  }
 
   if (items.length === 0) {
     return (
@@ -61,7 +90,7 @@ export default function CartPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-4xl font-bold">Shopping Cart</h1>
-            <Button variant="outline" size="sm" onClick={clearCart}>
+            <Button variant="outline" size="sm" onClick={handleClearCart}>
               Clear Cart
             </Button>
           </div>
@@ -94,15 +123,19 @@ export default function CartPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity - 1, item.name)}
+                          aria-label={`Decrease quantity of ${item.name}`}
                         >
                           −
                         </Button>
-                        <span className="w-12 text-center font-medium">{item.quantity}</span>
+                        <span className="w-12 text-center font-medium" aria-label={`Quantity: ${item.quantity}`}>
+                          {item.quantity}
+                        </span>
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity + 1, item.name)}
+                          aria-label={`Increase quantity of ${item.name}`}
                         >
                           +
                         </Button>
@@ -112,7 +145,8 @@ export default function CartPage() {
                       <Button
                         size="sm"
                         variant="destructive"
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveItem(item.id, item.name)}
+                        aria-label={`Remove ${item.name} from cart`}
                       >
                         Remove
                       </Button>

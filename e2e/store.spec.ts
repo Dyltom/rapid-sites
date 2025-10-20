@@ -173,8 +173,8 @@ test.describe('Store E2E Tests', () => {
     // Verify initial quantity is 1
     await expect(page.getByText('1', { exact: true }).first()).toBeVisible()
 
-    // Increase quantity by clicking the + button
-    const increaseButton = page.getByRole('button', { name: '+' }).first()
+    // Increase quantity by clicking the + button (using aria-label)
+    const increaseButton = page.getByRole('button', { name: /Increase quantity/i }).first()
     await increaseButton.click()
 
     // Verify quantity is now 2
