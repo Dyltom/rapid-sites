@@ -151,6 +151,11 @@ const config: Config = {
           from: { transform: 'scale(1)', opacity: '1' },
           to: { transform: 'scale(0.95)', opacity: '0' },
         },
+        'ping-once': {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.3)', opacity: '0.8' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -163,6 +168,7 @@ const config: Config = {
         'slide-in-from-right': 'slide-in-from-right 0.3s ease-out',
         'zoom-in': 'zoom-in 0.2s ease-out',
         'zoom-out': 'zoom-out 0.2s ease-out',
+        'ping-once': 'ping-once 0.6s cubic-bezier(0, 0, 0.2, 1)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

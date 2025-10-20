@@ -17,8 +17,8 @@ test.describe('Store E2E Tests', () => {
   test('should navigate to product detail page', async ({ page }) => {
     await page.goto('/store')
 
-    // Click first "View Details" button
-    await page.getByRole('button', { name: /View Details/i }).first().click()
+    // Click first "Details" link
+    await page.getByRole('link', { name: /Details/i }).first().click()
 
     // Should navigate to product page
     await expect(page).toHaveURL(/\/store\/.+/)
@@ -209,5 +209,31 @@ test.describe('Store E2E Tests', () => {
     await page.goto('/store')
     const badge = page.locator('.absolute.-top-2.-right-2')
     await expect(badge).not.toBeVisible()
+  })
+
+  test('should quick add item from store listing page', async ({ page }) => {
+    // Clear cart
+    await page.goto('/store')
+    await page.evaluate(() => localStorage.clear())
+
+    // Click "Add to Cart" button on first product card (not "Details")
+    const addToCartButtons = page.getByRole('button', { name: /Add to Cart/i })
+    const firstAddButton = addToCartButtons.first()
+    await expect(firstAddButton).toBeVisible()
+    await firstAddButton.click()
+
+    // Wait for state update and verify button feedback
+    await expect(page.getByRole('button', { name: /Added!/i }).first()).toBeVisible({ timeout: 2000 })
+
+    // Reload page to ensure cart persisted
+    await page.reload()
+
+    // Cart badge should update to show "1"
+    const badge = page.locator('.absolute.-top-2.-right-2', { hasText: '1' })
+    await expect(badge).toBeVisible()
+
+    // Verify item is in cart
+    await page.goto('/cart')
+    await expect(page.getByText(/Premium Coffee Beans/i)).toBeVisible()
   })
 })

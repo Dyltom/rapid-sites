@@ -1,11 +1,10 @@
-import Link from 'next/link'
 import { Container, Section, Grid } from '@/components/layout'
 import { Navigation, Footer } from '@/components/navigation'
 import { SectionHeader } from '@/components/sections'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { formatCurrency } from '@/lib/utils'
+import { ProductCard } from '@/components/product/ProductCard'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 /**
  * Store/Shop Page - Working Ecommerce Demo
@@ -122,81 +121,7 @@ export default async function StorePage() {
 
           <Grid cols={3} gap="lg">
             {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <Link href={`/store/${product.slug}`}>
-                  {/* Product Image Placeholder */}
-                  <div className="relative aspect-square w-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
-                    <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                      {product.name.includes('Coffee') && '☕'}
-                      {product.name.includes('Tea') && '🍵'}
-                      {product.name.includes('Mug') && '🍺'}
-                      {product.name.includes('Grinder') && '⚙️'}
-                      {product.name.includes('Press') && '🫖'}
-                      {product.name.includes('Infuser') && '🌿'}
-                    </div>
-                    {product.featured && (
-                      <Badge className="absolute top-2 right-2">Featured</Badge>
-                    )}
-                    {product.compareAtPrice && (
-                      <Badge variant="destructive" className="absolute top-2 left-2">
-                        Sale
-                      </Badge>
-                    )}
-                    {product.stock === 0 && (
-                      <Badge variant="destructive" className="absolute top-2 left-2">
-                        Out of Stock
-                      </Badge>
-                    )}
-                  </div>
-
-                  <div className="p-4">
-                    {/* Product Name */}
-                    <h3 className="font-semibold mb-2 line-clamp-2 hover:text-primary transition-colors">
-                      {product.name}
-                    </h3>
-
-                    {/* Description */}
-                    {product.description && (
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {product.description}
-                      </p>
-                    )}
-
-                    {/* Price */}
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-lg font-bold">
-                        {formatCurrency(product.price, 'USD')}
-                      </span>
-                      {product.compareAtPrice && product.compareAtPrice > product.price && (
-                        <span className="text-sm text-muted-foreground line-through">
-                          {formatCurrency(product.compareAtPrice, 'USD')}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Stock Status */}
-                    <div className="mb-4 text-sm">
-                      {product.stock > 20 && (
-                        <span className="text-success">✓ In Stock ({product.stock} available)</span>
-                      )}
-                      {product.stock > 0 && product.stock <= 20 && (
-                        <span className="text-warning">⚠️ Low Stock ({product.stock} left)</span>
-                      )}
-                      {product.stock === 0 && (
-                        <span className="text-destructive">✗ Out of Stock</span>
-                      )}
-                    </div>
-
-                    {/* CTA */}
-                    <Button
-                      className="w-full"
-                      disabled={product.stock === 0}
-                    >
-                      {product.stock === 0 ? 'Out of Stock' : 'View Details'}
-                    </Button>
-                  </div>
-                </Link>
-              </Card>
+              <ProductCard key={product.id} product={product} />
             ))}
           </Grid>
 
